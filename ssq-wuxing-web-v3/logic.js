@@ -53,3 +53,37 @@ function generate() {
 document.getElementById("today").innerText = "今天是：" + getToday();
 const gua = getGua(new Date().getMonth() + 1);
 document.getElementById("gua").innerText = `今日卦象：${gua.name}卦，五行属：${gua.wuxing}`;
+const todayStr = new Date().toISOString().slice(0, 10); // 2025-07-27
+const cacheKey = "ssq_last_generated_date";
+
+function shouldRegenerate() {
+  return localStorage.getItem(cacheKey) !== todayStr;
+}
+
+function generate() {
+  if (!shouldRegenerate()) {
+    document.getElementById("numbers").innerHTML = localStorage.getItem("ssq_today_numbers");
+    return;
+  }
+
+  const redPool = [2, 5, 8, 10, 12, 16, 18, 22, 25, 28, 30, 33];
+  const bluePool = [1, 3, 5, 6, 8, 11, 13, 15];
+  const sets = [];
+
+  for (let i = 0; i < 3; i++) {
+    let reds = [];
+    while (reds.length < 6) {
+      const r = redPool[Math.floor(Math.random() * redPool.length)];
+      if (!reds.includes(r)) reds.push(r);
+    }
+    reds.sort((a, b) => a - b);
+    const blue = bluePool[Math.floor(Math.random() * bluePool.length)];
+    sets.push(`红球：${reds.join(", ")} | 蓝球：${blue}`);
+  }
+
+  const html = sets.map(n => `<li>${n}</li>`).join("");
+  localStorage.setItem("ssq_last_generated_date", todayStr);
+  localStorage.setItem("ssq_today_numbers", html);
+  document.getElementById("numbers").innerHTML = html;
+}
+
