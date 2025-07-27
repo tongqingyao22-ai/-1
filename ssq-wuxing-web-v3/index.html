@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>双色球五行八卦选号系统</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>双色球五行八卦选号系统（增强版）</h1>
+
+    <section>
+      <label>🎂 出生日期：</label>
+      <input type="date" id="birthday" value="2002-06-27" />
+      <button onclick="analyze()">分析命盘</button>
+    </section>
+
+    <section>
+      <h2>📅 今日信息</h2>
+      <p id="today"></p>
+      <p id="gua"></p>
+    </section>
+
+    <section>
+      <h2>🧧 命理分析</h2>
+      <p id="wuxing"></p>
+    </section>
+
+    <section>
+      <h2>🔢 推荐号码</h2>
+      <button onclick="generate()">生成推荐</button>
+      <ul id="numbers"></ul>
+    </section>
+  </div>
+  <script src="logic.js"></script>
+</body>
+</html>
